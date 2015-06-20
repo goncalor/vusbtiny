@@ -24,7 +24,8 @@
 #define USB_CFG_DPLUS_BIT       3
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
- * to interrupt pin INT0!
+ * to interrupt pin INT0! (or you need to change some defines on the bottom
+ * of this file.)
  */
 #define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
 /* Clock rate of the AVR in MHz. Legal values are 12000, 16000 or 16500.
@@ -146,7 +147,7 @@ extern void usbEventResetReady(void);
  * obdev's free shared VID/PID pair. See the file USBID-License.txt for
  * details.
  */
-#define USB_CFG_DEVICE_NAME     'U', 'S', 'B', 't', 'i', 'n', 'y', 'S', 'P', 'I'
+#define USB_CFG_DEVICE_NAME     'U', 'S', 'B', 't', 'i', 'n', 'y', 'I', 'S', 'P'
 #define USB_CFG_DEVICE_NAME_LEN 10
 /* Same as above for the device name. If you don't want a device name, undefine
  * the macros. See the file USBID-License.txt before you assign a name if you
@@ -165,7 +166,7 @@ extern void usbEventResetReady(void);
 #define USB_CFG_DEVICE_SUBCLASS     0
 /* See USB specification if you want to conform to an existing device class.
  */
-#define USB_CFG_INTERFACE_CLASS     0xff   /* HID */
+#define USB_CFG_INTERFACE_CLASS     0xff   /* vendor specific */
 #define USB_CFG_INTERFACE_SUBCLASS  0   /* no boot interface */
 #define USB_CFG_INTERFACE_PROTOCOL  0   /* no protocol */
 /* See USB specification if you want to conform to an existing device class or
