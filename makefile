@@ -65,7 +65,7 @@
 # Name of target controller 
 # (e.g. 'at90s8515', see the available avr-gcc mmcu 
 # options for possible values)
-MCU=attiny45
+MCU=attiny85
 
 # id to use with programmer
 # default: PROGRAMMER_MCU=$(MCU)
@@ -73,7 +73,7 @@ MCU=attiny45
 # accept the same MCU name as avr-gcc (for example
 # for ATmega8s, avr-gcc expects 'atmega8' and 
 # avrdude requires 'm8')
-PROGRAMMER_MCU=t45
+PROGRAMMER_MCU=$(MCU)
 
 # Name of our project
 # (use a single word, e.g. 'myproject')
@@ -114,12 +114,16 @@ OPTLEVEL=s
 # described in the avrdude info page.
 # 
 #AVRDUDE_PROGRAMMERID=avrisp2
-AVRDUDE_PROGRAMMERID=usbtiny
+#AVRDUDE_PROGRAMMERID=usbtiny
+AVRDUDE_PROGRAMMERID=avrisp
 
 # port--serial or parallel port to which your 
 # hardware programmer is attached
 #
-AVRDUDE_PORT=/dev/ttyUSB0
+AVRDUDE_PORT=/dev/ttyACM0
+
+# the baud rate the programmer is using
+BAUD=19200
 
 
 ####################################################
@@ -232,8 +236,10 @@ hex: $(HEXTRG)
 
 writeflash: hex
 	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
-	 -p $(PROGRAMMER_MCU) -e        \
-	 -V -U flash:w:$(HEXROMTRG)
+		-p $(PROGRAMMER_MCU) -e             \
+		-P $(AVRDUDE_PORT)                  \
+		-b $(BAUD)                          \
+		-U flash:w:$(HEXROMTRG)
 
 install: writeflash
 
@@ -316,6 +322,20 @@ clean:
 	$(REMOVE) $(GENASMFILES)
 	$(REMOVE) $(HEXTRG)
 	
+
+# high and low fuse values
+FUSE_H=0x5d
+FUSE_L=0xe1
+
+# change fuse values of the device
+fuse:
+	@[ "$(FUSE_H)" != "" -a "$(FUSE_L)" != "" ] || \
+		{ echo "*** Please edit Makefile and choose values for FUSE_L and FUSE_H!"; exit 1; }
+	$(AVRDUDE) -c $(AVRDUDE_PROGRAMMERID)   \
+		-p $(PROGRAMMER_MCU)                \
+		-P $(AVRDUDE_PORT)                  \
+		-b $(BAUD)                          \
+		-U lfuse:w:$(FUSE_L):m -U hfuse:w:$(FUSE_H):m
 
 
 #####                    EOF                   #####
