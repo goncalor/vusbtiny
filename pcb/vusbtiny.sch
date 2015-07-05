@@ -11090,6 +11090,8 @@ For boards designed to be plugged directly into a USB slot. If possible, ensure 
 <classes>
 <class number="0" name="default" width="0" drill="0">
 </class>
+<class number="1" name="gnd" width="0.5" drill="0">
+</class>
 </classes>
 <parts>
 <part name="FRAME1" library="frames" deviceset="A4L-LOC" device=""/>
