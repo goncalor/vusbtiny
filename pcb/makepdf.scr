@@ -1,0 +1,5 @@
+RATSNEST
+DISPLAY None Bottom Pads Vias Dimension
+PRINT 1 -1 - black file *.pdf paper A4
+DISPLAY last
+#DISPLAY None Top Bottom Pads Vias Unrouted Dimension tPlace bPlace tOrigins bOrigins tDocu bDocu
