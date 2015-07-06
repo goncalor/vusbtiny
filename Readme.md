@@ -1,9 +1,47 @@
-# How to flash the ATtiny (with an Arduino Uno)
+# Introduction
+
+VUSBtiny is a small in-system programmer (ISP) for Atmel AVR microcontrollers. It allows you to program microcontrollers on the go, without carrying a big programmer with you.
+
+VUSBtiny is based on the [USBtinyISP](https://learn.adafruit.com/usbtinyisp). It uses an Atmel AVR microcontroller running [V-USB](https://www.obdev.at/products/vusb/index.html), which allows it to communicate with your computer via a USB port.
+
+The programmer was not developed by me, but with this repository I added to it in some ways:
+
+- edited the code so that it compiles with the most recent versions of `avr-gcc`
+- designed a PCB for the project, in a way which should make it simple to be hand produced
+- wrote this readme, which can help you make your own VUSBtiny.
+
+You can find the original VUSBtiny page [here](http://www.simpleavr.com/avr/vusbtiny).
+
+
+# License
+
+VUSBtiny is licensed under [GNU GPL v2.0](http://choosealicense.com/licenses/gpl-2.0/). The license is in the file `LICENSE.txt`. The changes I made are released under the same license.
+
+The V-USB driver is licensed under GNU GPL v2.0. If you intend to use V-USB commercially read [this page](https://www.obdev.at/products/vusb/license.html).
+
+
+# Needed components
+
+To assemble your own VUSBtiny you will need the following components:
+
+- an Atmel AVR microcontroller [compatible with V-USB](https://www.obdev.at/products/vusb/index.html). I suggest ATtiny45 or ATtiny85
+- two 68 Ω resistors
+- one 1.5 kΩ resistor
+- two 3.6 V Zener diodes
+- a 10 μF capacitor (optional but recommended)
+- a breadboard, perfboard or PCB to assemble the circuit.
+
+
+# How to flash the AVR
+
+The following instructions teach you how you can flash the Atmel AVR you chose to be the brain of your VUSBtiny. I will assume you are using ATtiny45 or ATtiny85. The instructions should be very similar even if you are using others.
+
+## With an Arduino Uno
 
 1. Choose a microcontroller compatible with V-USB. You can read about the required specs [here](https://www.obdev.at/products/vusb/). You need at least a 2 kB flash and 128 B of RAM. If you don't want to use an external oscillator your microcontroller must have a 16.5 MHz internal RC oscillator.
 1. [Setup your Arduino as an ATtiny programmer](http://highlowtech.org/?p=1695)
 1. Program Arduino Uno with the "ArduinoISP" sketch. This step is done without the capacitor between the RESET and GND pins of the Arduino. After you upload the "ArduinoISP" sketch connect the capacitor, as described in the link above
-1. Ajust the following options in the `makefile`:
+1. Adjust the following options in the `makefile`:
     - `MCU=attiny85`, for example
     - possibly adjust `PROGRAMMER_MCU` also. For ATtiny85/45 this is not needed
     - `AVRDUDE_PROGRAMMERID=avrisp`
@@ -16,6 +54,7 @@
     - the fuses differ from device to device. The `makefile` is prepared for ATtiny85/45. If you have another MCU search for a fuse calculator that can aid you setting the correct fuses
     - when you're ready run `make fuse`
 
+
 # How to use your new programmer
 
 Your newly made programmer will be seen as a USBtinyISP programmer. That means the options you give to `avrdude` will be the same as if you had a true USBtinyISP connected. Example (flashing a simple blink code):
@@ -23,6 +62,7 @@ Your newly made programmer will be seen as a USBtinyISP programmer. That means t
 	avrdude -c usbtiny -p attiny85 -U flash:w:blinkC.hex
 
 You may have to run with `sudo`, or set correct options in your system.
+
 
 # Troubleshooting
 
@@ -39,9 +79,6 @@ You may have to run with `sudo`, or set correct options in your system.
 
 
 2. When programming `avrdude` throws an error
-
-
-
 
 		avrdude -c usbtiny -p attiny85 -U flash:w:blinkC.hex
 	
