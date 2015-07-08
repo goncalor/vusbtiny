@@ -25,6 +25,7 @@ The V-USB driver is licensed under GNU GPL v2.0. If you intend to use V-USB comm
 To assemble your own VUSBtiny you will need the following components:
 
 - an Atmel AVR microcontroller [compatible with V-USB](https://www.obdev.at/products/vusb/index.html). I suggest ATtiny45 or ATtiny85
+- one USB port (male and type A)
 - two 68 Ω resistors
 - one 1.5 kΩ resistor
 - two 3.6 V Zener diodes
