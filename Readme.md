@@ -59,7 +59,7 @@ The following instructions teach you how you can flash the Atmel AVR you chose t
 
 Your newly made programmer will be seen as a USBtinyISP programmer. That means the options you give to `avrdude` will be the same as if you had a true USBtinyISP connected. Example (flashing a simple blink code):
 
-	avrdude -c usbtiny -p attiny85 -U flash:w:blinkC.hex
+	avrdude -c usbtiny -p t85 -U flash:w:blinkC.hex
 
 You may have to run with `sudo`, or set correct options in your system.
 
@@ -78,9 +78,9 @@ You may have to run with `sudo`, or set correct options in your system.
 	If instead you see only error messages this means the VUSBtiny was not correctly recognised, so it will not work. Try reconnecting.
 
 
-2. When programming `avrdude` throws an error
+2. When programming with VUSBtiny `avrdude` throws `Operation not permitted` error
 
-		avrdude -c usbtiny -p attiny85 -U flash:w:blinkC.hex
+		avrdude -c usbtiny -p t85 -U flash:w:blinkC.hex
 	
 		avrdude: error: usbtiny_transmit: error sending control message: Operation not permitted
 		avrdude: initialization failed, rc=-1
@@ -94,3 +94,26 @@ You may have to run with `sudo`, or set correct options in your system.
 
 	- run the command with `sudo` or
 	- [write a udev rule](https://mightyohm.com/blog/2010/03/run-avrdude-without-root-privs-in-ubuntu/)
+
+
+3. When programming with VUSBtiny `avrdude` throws `initialization failed, rc=-1` error
+
+		avrdude -c usbtiny -p t85 -U flash:w:blinkC.hex 
+
+		avrdude: initialization failed, rc=-1
+			 Double check connections and try again, or use -F to override
+			 this check.
+
+
+		avrdude done.  Thank you.
+
+	If you see this error you probably made a mistake when hooking up the programmer (VUSBtiny) to the target (whatever microcontroller you are programming). Recheck your connections against a 6-pin ISP header pinout and the MISO, MOSI, SCK, RST, VCC and GND pins of your microcontroller.
+
+
+# Improvements
+
+Some improvements that should be made to the PCB are:
+
+- leave more space between the capacitor and the ISP headers. This way the capacitor can be bent to be made horizontal without difficulting access to the ISP header pins
+
+- increase spacing between traces. This is meant to ease manual production and soldering of the board
