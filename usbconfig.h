@@ -18,10 +18,12 @@
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
 #define USB_CFG_DMINUS_BIT      4
+//#define USB_CFG_DMINUS_BIT      3
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
 #define USB_CFG_DPLUS_BIT       3
+//#define USB_CFG_DPLUS_BIT       4
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0! (or you need to change some defines on the bottom
