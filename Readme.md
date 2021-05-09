@@ -10,7 +10,7 @@ The programmer was not developed by me, but with this repository I added to it i
 - designed a PCB for the project, in a way which should make it simple to be hand produced
 - wrote this readme, which can help you make your own VUSBtiny.
 
-You can find the original VUSBtiny page [here](https://simpleavr.github.io/old_projects/avr_vusbtiny/index.html).
+You can find the original VUSBtiny page [here](https://web.archive.org/web/20180423215321/http://www.simpleavr.com/avr/vusbtiny) (or [here](https://simpleavr.github.io/old_projects/avr_vusbtiny/index.html)).
 
 
 # License
