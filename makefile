@@ -87,6 +87,12 @@ PROJECTNAME=vusbtiny
 # PRJSRC=main.c myclass.cpp lowlevelstuff.S
 PRJSRC=main.c usbdrv/usbdrv.c usbdrv/oddebug.c usbdrv/usbdrvasm.S
 
+# 'all' is the default target (but has the real definition later):
+all:
+
+# Additional dependency which is not guessed automatically:
+usbdrv/usbdrvasm.o: usbconfig.h
+
 # additional includes (e.g. -I/path/to/mydir)
 # INC=-I/path/to/include
 INC=-Iusbdrv
